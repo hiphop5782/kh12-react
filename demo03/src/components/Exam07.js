@@ -58,24 +58,42 @@ const Exam07 = ()=>{
                     <div className="row mt-4">
                         <div className="col">
                             <label className="form-label">아이디</label>
-                            <input type="text" name="memberId" className="form-control"
+                            <input type="text" name="memberId" 
+                                    className={`
+                                        form-control 
+                                        ${result.memberId ? 'is-valid' : 'is-invalid'}
+                                    `}
                                     value={member.memberId} onChange={changeMember}/>
+                            <div className="valid-feedback">멋진 아이디입니다!</div>
+                            <div className="invalid-feedback">사용할 수 없는 아이디입니다</div>
                         </div>
                     </div>
 
                     <div className="row mt-4">
                         <div className="col">
                             <label className="form-label">비밀번호</label>
-                            <input type="password" name="memberPw" className="form-control"
+                            <input type="password" name="memberPw" 
+                                    className={`
+                                        form-control
+                                        ${result.memberPw ? 'is-valid' : 'is-invalid'}
+                                    `}
                                     value={member.memberPw} onChange={changeMember}/>
+                            <div className="valid-feedback">올바른 형식의 비밀번호입니다</div>
+                            <div className="invalid-feedback">비밀번호 형식이 올바르지 않습니다</div>
                         </div>
                     </div>
 
                     <div className="row mt-4">
                         <div className="col">
                             <label className="form-label">비밀번호 확인</label>
-                            <input type="password" name="memberPwRe" className="form-control"
+                            <input type="password" name="memberPwRe" 
+                                    className={`
+                                        form-control
+                                        ${result.memberPwRe ? 'is-valid' : 'is-invalid'}
+                                    `}
                                     value={member.memberPwRe} onChange={changeMember}/>
+                            <div className="valid-feedback">비밀번호가 일치합니다</div>
+                            <div className="invalid-feedback">비밀번호가 일치하지 않습니다</div>
                         </div>
                     </div>
 
@@ -83,7 +101,9 @@ const Exam07 = ()=>{
 
                     <div className="row mt-4">
                         <div className="col">
-                            <button type="button" className="btn btn-primary w-100">회원가입</button>
+                            <button type="button" className="btn btn-primary w-100"
+                                disabled={!(result.memberId && result.memberPw 
+                                                    && result.memberPwRe)}>회원가입</button>
                         </div>
                     </div>
 
