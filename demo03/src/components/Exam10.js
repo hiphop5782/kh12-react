@@ -108,6 +108,18 @@ const Exam10 = ()=>{
         setItems(newItems);
     };
 
+    //아이템 삭제
+    //- 배열에서 항목을 삭제할 때도 filter를 사용한다
+    const deleteItem = (target)=>{
+        //아이템 삭제
+        const newItems = items.filter(item=>item.itemNo !== target.itemNo);
+        setItems(newItems);
+
+        //백업 삭제
+        const newBackup = backup.filter(item=>item.itemNo !== target.itemNo);
+        setBackup(newBackup);
+    };
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -169,7 +181,8 @@ const Exam10 = ()=>{
                                                 <td>
                                                     <button className="btn btn-sm btn-warning"
                                                             onClick={e=>changeToEdit(item)}>수정</button>
-                                                    <button className="btn btn-sm btn-danger ms-1">삭제</button>
+                                                    <button className="btn btn-sm btn-danger ms-1"
+                                                            onClick={e=>deleteItem(item)}>삭제</button>
                                                 </td>
                                             </tr>
                                         )
