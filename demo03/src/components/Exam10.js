@@ -14,6 +14,19 @@ const Exam10 = ()=>{
         {itemNo:10, itemName:"하리보젤리", itemPrice:5500, itemType:"식품", edit:false}
     ]);
     const [backup, setBackup] = useState([]);
+    const [data, setData] = useState({
+        itemName:"",
+        itemPrice:"",
+        itemType:"",
+    });
+
+    const changeData = e=>{
+        const newData = {
+            ...data,
+            [e.target.name] : e.target.value
+        };
+        setData(newData);
+    };
 
     //(중요) "시작하자마자" items의 내용을 backup으로 복제(1회)
     useEffect(()=>{
@@ -120,6 +133,28 @@ const Exam10 = ()=>{
         setBackup(newBackup);
     };
 
+    //항목 추가
+    //- data에 들어있는 객체를 복사해서 items에 추가
+    //- data는 깨끗하게 정리
+    const addItem = e=>{
+        //const newItems = items.concat({...data});
+        const newItems = [
+            ...items, 
+            {
+                ...data, 
+                itemNo : items[items.length-1].itemNo + 1
+            }
+        ];
+        setItems(newItems);
+
+        //입력창 초기화
+        setData({
+            itemName:"",
+            itemPrice:"",
+            itemType:"",
+        });
+    };
+
     return (
         <div className="container-fluid">
             <div className="row">
@@ -131,7 +166,11 @@ const Exam10 = ()=>{
 
                     <div className="row mt-4">
                         <div className="col">
-                            <button type="button" className="btn btn-primary">추가</button>
+                            <input name="itemName" value={data.itemName} onChange={changeData}/>
+                            <input name="itemPrice" value={data.itemPrice} onChange={changeData}/>
+                            <input name="itemType" value={data.itemType} onChange={changeData}/>
+                            <button type="button" className="btn btn-primary"
+                                    onClick={addItem}>추가</button>
                         </div>
                     </div>
 
