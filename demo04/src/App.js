@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { FaXmark } from "react-icons/fa6";
 import { FaRegEdit } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 import Jumbotron from "./components/Jumbotron";
+import { Modal } from "bootstrap";
 
 function App() {
   //목록을 위한 state
@@ -16,6 +17,8 @@ function App() {
   const [data, setData] = useState({title:"", type:""});
   //수정을 위한 state
   const [editData, setEditData] = useState({title:"", type:""});
+
+  const bsModal = useRef();
 
   const changeData = (e)=>{
     setData({
@@ -54,6 +57,8 @@ function App() {
   const editTodoList = (todo) => {
     //setEditData(todo);//안되는 코드(얕은 복사, shallow copy)
     setEditData({...todo});//가능한 코드(깊은 복사, deep copy)
+
+    openModal();
   };
   
   const changeEditData = e=>{
@@ -61,6 +66,37 @@ function App() {
       ...editData,
       [e.target.name] : e.target.value
     });
+  };
+
+  const clearEditData = ()=>{
+    setEditData({title:"",type:""});
+    closeModal();
+  };
+
+  const saveTodoList = ()=>{
+    //editData의 내용을 todoList에 반영하고 초기화
+
+    const newTodoList = todoList.map(t=>{
+      if(t.no === editData.no) {
+        return {...editData};
+      }
+      return t;
+    });
+    setTodoList(newTodoList);
+
+    clearEditData();
+
+    closeModal();
+  };
+
+  //Modal 제어 함수
+  const openModal = ()=>{
+    const modal = new Modal(bsModal.current);
+    modal.show();
+  };
+  const closeModal = ()=>{
+    const modal = Modal.getInstance(bsModal.current);
+    modal.hide();
   };
 
   return (
@@ -97,21 +133,6 @@ function App() {
 
           <hr/>
 
-          {/* 수정 화면 */}
-          <div className="row mt-4">
-            <div className="col-6">
-              <input type="text" name="title" value={editData.title} onChange={changeEditData}/>
-            </div>
-            <div className="col-3">
-              <select name="type" value={editData.type} onChange={changeEditData}>
-                <option>일상</option>
-                <option>약속</option>
-                <option>취미</option>
-                <option>공부</option>
-              </select>
-            </div>
-          </div>
-
           {/* 출력 화면 */}
           <div className="row mt-4">
             {todoList.map(todo=>(
@@ -131,6 +152,48 @@ function App() {
 
         </div>
       </div>
+
+      {/* Modal */}
+      <div className="modal fade" ref={bsModal} id="exampleModal" 
+                data-bs-backdrop="static" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div className="modal-dialog" role="document">
+            <div className="modal-content">
+            <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLabel">일정 변경</h5>
+                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div className="modal-body">
+                {/* 수정 화면 */}
+                <div className="row">
+                  <div className="col">
+                    <label className="form-label">할일</label>
+                    <input type="text" name="title" value={editData.title} 
+                        className="form-control" onChange={changeEditData}/>
+                  </div>
+                </div>
+                <div className="row mt-4">
+                  <div className="col">
+                    <label className="form-label">종류</label>
+                    <select name="type" value={editData.type} onChange={changeEditData}
+                        className="form-select">
+                      <option>일상</option>
+                      <option>약속</option>
+                      <option>취미</option>
+                      <option>공부</option>
+                    </select>
+                  </div>
+                </div>
+            </div>
+            <div className="modal-footer">
+                <button className="btn btn-secondary" onClick={clearEditData}>취소</button>
+                <button className="btn btn-success" onClick={saveTodoList}>저장</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
     </div>
   );
 }
