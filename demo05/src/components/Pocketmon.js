@@ -3,8 +3,9 @@ import axios from "axios";
 
 const Pocketmon = (props)=>{
     const [pocketmonList, setPocketmonList] = useState([]);
+
+    //서버에서 pocketmon list를 불러와서 state에 설정하는 코드
     useEffect(()=>{
-        //서버에서 pocketmon list를 불러와서 state에 설정하는 코드
         axios({
             url:"http://localhost:8080/pocketmon/",
             method:"get"
@@ -28,7 +29,7 @@ const Pocketmon = (props)=>{
 
             <div className="row mt-4">
                 <div className="col">
-                    <table class="table">
+                    <table className="table">
                         <thead>
                             <tr>
                                 <th>번호</th>
