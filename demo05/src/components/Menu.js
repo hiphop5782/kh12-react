@@ -1,13 +1,13 @@
 import { NavLink, useLocation } from "react-router-dom";
 import "bootstrap/dist/js/bootstrap.js";
 
-const Menu = props => {
+const Menu = (props) => {
     const location = useLocation();
     //console.log(location.pathname);
 
     return (
         <>
-            <nav className="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <nav className="navbar navbar-expand-lg bg-dark fixed-top" data-bs-theme="dark">
                 <div className="container-fluid">
                     <NavLink className="navbar-brand" to="/">KH정보교육원</NavLink>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
