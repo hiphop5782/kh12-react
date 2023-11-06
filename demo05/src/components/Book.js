@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {LiaEdit} from "react-icons/lia";
+import {AiFillDelete} from "react-icons/ai";
 
 import "./Book.css";
 
@@ -36,7 +38,7 @@ const Book = (props)=>{
                                 <th className="pc-only">코드</th>
                                 <th>제목</th>
                                 <th>저자</th>
-                                <th>출판사</th>
+                                <th className="pc-only">출판사</th>
                                 <th className="pc-only">출간일</th>
                                 <th>판매가</th>
                                 <th className="pc-only">페이지</th>
@@ -50,13 +52,15 @@ const Book = (props)=>{
                                     <td className="pc-only">{book.bookId}</td>
                                     <td>{book.bookTitle}</td>
                                     <td>{book.bookAuthor}</td>
-                                    <td>{book.bookPublisher}</td>
+                                    <td className="pc-only">{book.bookPublisher}</td>
                                     <td className="pc-only">{book.bookPublicationDate}</td>
                                     <td>{book.bookPrice}</td>
                                     <td className="pc-only">{book.bookPageCount}</td>
                                     <td className="pc-only">{book.bookGenre}</td>
                                     <td>
                                         {/* 아이콘 자리 */}
+                                        <LiaEdit className="text-warning"/>
+                                        <AiFillDelete className="text-danger"/>
                                     </td>
                                 </tr>
                             ))}

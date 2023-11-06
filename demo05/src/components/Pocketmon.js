@@ -1,6 +1,9 @@
 import {useState, useEffect} from "react";
 import axios from "axios";
 
+import {LiaEdit} from "react-icons/lia";
+import {AiFillDelete} from "react-icons/ai";
+
 const Pocketmon = (props)=>{
     const [pocketmonList, setPocketmonList] = useState([]);
 
@@ -44,7 +47,11 @@ const Pocketmon = (props)=>{
                                     <td>{pocketmon.no}</td>
                                     <td>{pocketmon.name}</td>
                                     <td>{pocketmon.type}</td>
-                                    <td></td>
+                                    <td>
+                                        {/* 아이콘 자리 */}
+                                        <LiaEdit className="text-warning"/>
+                                        <AiFillDelete className="text-danger"/>                                        
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>

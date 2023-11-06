@@ -12,7 +12,7 @@ function App() {
 
       {/* 본문 영역 */}
       <div className="row">
-        <div className="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+        <div className="col-sm-10 offset-sm-1">
           <Routes>
             <Route exact path="/" element={<Home/>}></Route>
             <Route path="/pocketmon" element={<Pocketmon/>}></Route>
