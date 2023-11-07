@@ -83,6 +83,34 @@ const Pocketmon = (props)=>{
         .catch(err=>{});    
     };
 
+    //포켓몬스터 수정 창 열기
+    //- target은 수정 버튼을 누른 행의 포켓몬스터 정보
+    //- target의 정보를 poocketmon으로 카피 후 모달 열기
+    const editPocketmon = (target)=>{
+        setPocketmon({...target});
+        openModal();
+    };
+
+    //포켓몬스터 수정 처리
+    const updatePocketmon = ()=>{
+        //검사 후 차단 처리
+
+        const {no, name, type} = pocketmon;
+        axios({
+            url:`http://localhost:8080/pocketmon/${no}`,
+            method:"put",
+            data:{
+                name : name, 
+                type : type
+            }
+        })
+        .then(response=>{
+            loadPocketmon();
+            closeModal();
+        })
+        .catch(err=>{});
+    };
+
     return (
         <>
             
@@ -123,7 +151,8 @@ const Pocketmon = (props)=>{
                                     <td>{pocketmon.type}</td>
                                     <td>
                                         {/* 아이콘 자리 */}
-                                        <LiaEdit className="text-warning"/>
+                                        <LiaEdit className="text-warning"
+                                            onClick={e=>editPocketmon(pocketmon)}/>
                                         <AiFillDelete className="text-danger" 
                                             onClick={e=>deletePocketmon(pocketmon)}/>                                        
                                     </td>
@@ -140,7 +169,10 @@ const Pocketmon = (props)=>{
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title" >제목</h5>
+                        <h5 className="modal-title" >
+                            {pocketmon.no === undefined ? 
+                                '신규 몬스터 등록' : `${pocketmon.no}번 몬스터 수정`}
+                        </h5>
                         <button type="button" className="border-0 bg-transparent" 
                                                                                     onClick={closeModal}>
                             <span aria-hidden="true">&times;</span>
@@ -167,7 +199,12 @@ const Pocketmon = (props)=>{
                     </div>
                     <div className="modal-footer">
                         <button className="btn btn-secondary" onClick={closeModal}>닫기</button>
-                        <button className="btn btn-success" onClick={savePocketmon}>저장</button>
+                        {pocketmon.no === undefined ? 
+                            <button className="btn btn-success" onClick={savePocketmon}>저장</button>
+                            : 
+                            <button className="btn btn-success" onClick={updatePocketmon}>수정</button>
+                        }
+                        
                     </div>
                     </div>
                 </div>
