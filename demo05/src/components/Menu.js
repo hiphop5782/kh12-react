@@ -20,6 +20,9 @@ const Menu = (props) => {
                             <li className="nav-item">
                                 <NavLink className={`nav-link ${location.pathname === '/book' ? 'active' : ''}`} to="/book">도서</NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink className={`nav-link ${location.pathname === '/book2' ? 'active' : ''}`} to="/book2">도서(무한)</NavLink>
+                            </li>
                         </ul>
                     </div>
                 </div>
