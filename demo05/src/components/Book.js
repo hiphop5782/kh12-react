@@ -12,7 +12,7 @@ const Book = (props)=>{
     // const loadBook = ()=>{
     //     //서버에 있는 도서 정보를 불러와서 state에 반영하는 코드
     //     axios({
-    //         url:"http://localhost:8080/book/",
+    //         url:`${process.env.REACT_APP_REST_API_URL}/book/`,
     //         method:"get"
     //     })
     //     .then(response=>{
@@ -25,7 +25,7 @@ const Book = (props)=>{
 
     const loadBook = async () => {
         const response = await axios({
-            url:"http://localhost:8080/book/",
+            url:`${process.env.REACT_APP_REST_API_URL}/book/`,
             method:"get"
         });
         setBookList(response.data);
@@ -41,8 +41,8 @@ const Book = (props)=>{
         if(choice === false) return;
 
         axios({
-            //url:"http://localhost:8080/book/"+book.bookId,
-            url:`http://localhost:8080/book/${book.bookId}`,
+            //url:${process.env.REACT_APP_REST_API_URL}+"/book/"+book.bookId,
+            url:`${process.env.REACT_APP_REST_API_URL}/book/${book.bookId}`,
             method:"delete"
         })
         .then(response=>{
@@ -86,7 +86,7 @@ const Book = (props)=>{
     //     //book 유효성 검사 및 차단 코드
         
     //     axios({
-    //         url:"http://localhost:8080/book/",
+    //         url:`${process.env.REACT_APP_REST_API_URL}/book/`,
     //         method:"post",
     //         data: book,
     //         // data:{...book}
@@ -101,7 +101,7 @@ const Book = (props)=>{
     //- 비동기 작업을 동기화된 코드로 작성할 수 있다
     const saveBook = async ()=>{
         const response = await axios({
-            url:"http://localhost:8080/book/",
+            url:`${process.env.REACT_APP_REST_API_URL}/book/`,
             method:"post",
             data:book
         });
@@ -120,7 +120,7 @@ const Book = (props)=>{
         const copyBook = {...book};
         delete copyBook.bookId;
         axios({
-            url:`http://localhost:8080/book/${book.bookId}`,
+            url:`${process.env.REACT_APP_REST_API_URL}/book/${book.bookId}`,
             method:"put",
             data: copyBook
         })
